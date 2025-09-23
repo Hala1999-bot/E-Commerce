@@ -1,0 +1,254 @@
+<!-- <section
+y-14 mx-  class="bg-gray-300 border rounded-lg border-gray-200 p-4 shadow-md md:w-1/2 mx-auto"
+>
+  <h1 class="text-center mb-3 font-light text-3xl">Register Now</h1>
+  <div class="relative">
+    <input
+      [formControl]="email"
+      type="email"
+      id="email"
+      class="main-input peer"
+      placeholder=" "
+    />
+    <label for="email" class="main-label">Email</label>
+
+    @if (email.errors && email.touched) {
+    <div>
+      <span class="font-medium">Ensure that these requirements are met:</span>
+      <ul class="mt-1.5 list-disc list-inside">
+        @if (email.getError('required')) {
+        <li>Input Is Required</li>
+        } @if (email.getError('email')) {
+        <li>Please Inter a valid email address</li>
+        }
+      </ul>
+    </div>
+    }
+  </div>
+
+  <button (click)="submit()" class="btn mt-4">Register Now</button>
+</section> -->
+
+<section
+  class="bg-gray-300 border rounded-lg border-gray-200 p-4 shadow-md md:w-1/2 mx-auto"
+>
+  <h1 class="text-center mb-3 font-light text-3xl">Register Now</h1>
+  <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+    <app-input
+      [control]="registerForm.get('name')"
+      [typeInput]="'text'"
+      [idInput]="'name'"
+      [labelInput]="'Name'"
+    ></app-input>
+    <app-input
+      [control]="registerForm.get('email')"
+      [typeInput]="'email'"
+      [idInput]="'email'"
+      [labelInput]="'Email'"
+    ></app-input>
+    <app-input
+      [control]="registerForm.get('password')"
+      [idInput]="'password'"
+      [labelInput]="'Password'"
+      >custom field should match the pattern
+    </app-input>
+
+    <!-- @let nameControl= registerForm.get('name'); -->
+    <!-- <div class="relative mb-1">
+      <input
+        [class]="{
+        'border-green-700' : nameControl ?.valid,
+        'border-red-700' : nameControl ?.invalid && nameControl?.touched ,
+      }"
+        formControlName="name"
+        type="text"
+        id="name"
+        class="main-input peer"
+        placeholder=" "
+      />
+      <label
+        [class]="{
+        'text-green-700' : nameControl ?.valid,
+        'text-red-700' : nameControl ?.invalid && nameControl?.touched ,
+      }"
+        for="name"
+        class="main-label"
+        >Name</label
+      >
+      @if (nameControl?.errors && nameControl?.touched) {
+      <div>
+        <span class="font-medium">Ensure that these requirements are met:</span>
+        <ul class="mt-1.5 list-disc list-inside">
+          @if (nameControl?.getError('required')) {
+          <li>Input Is Required</li>
+          } @if (nameControl?.getError('minlength')) {
+          <li>Input should be more than or equal 2 character</li>
+          }@if (nameControl?.getError('maxlength')) {
+          <li>Input should be less than or equal 20 character</li>
+          }
+        </ul>
+      </div>
+      }
+    </div> -->
+    <!-- <div class="relative mb-1">
+      @let emailControl = registerForm.get('email');
+      <input
+        [class]="{
+        'border-green-700' : emailControl ?.valid,
+        'border-red-700' : emailControl ?.invalid && emailControl?.touched ,
+      }"
+        formControlName="email"
+        type="email"
+        id="email"
+        class="main-input peer"
+        placeholder=" "
+      />
+      <label
+        [class]="{
+        'text-green-700' : emailControl ?.valid,
+        'text-red-700' : emailControl ?.invalid && emailControl?.touched ,
+      }"
+        for="email"
+        class="main-label"
+        >Email</label
+      >
+      @if (emailControl?.errors && emailControl?.touched) {
+      <div>
+        <span class="font-medium">Ensure that these requirements are met:</span>
+        <ul class="mt-1.5 list-disc list-inside">
+          @if (emailControl?.getError('required')) {
+          <li>Input Is Required</li>
+          } @if (emailControl?.getError('email')) {
+          <li>Please Inter a valid email address</li>
+          }
+        </ul>
+      </div>
+      }
+    </div> -->
+    <!-- <div class="relative mb-1">
+      @let passwordControl = registerForm.get('password');
+      <input
+        [class]="{
+        'border-green-700' : passwordControl ?.valid,
+        'border-red-700' : passwordControl ?.invalid && passwordControl?.touched ,
+      }"
+        formControlName="password"
+        [type]="flag ? 'password' : 'text'"
+        id="password"
+        class="main-input peer"
+        placeholder=" "
+      />
+      <label
+        [class]="{
+        'text-green-700' : passwordControl ?.valid,
+        'text-red-700' : passwordControl ?.invalid && passwordControl?.touched ,
+      }"
+        for="password"
+        class="main-label"
+        >Password</label
+      >
+      <span
+        (click)="flag = !flag"
+        class="absolute top-1/2 end-4 -translate-y-1/2 cursor-pointer"
+      >
+        @if (flag) {<i class="fas-fa-eye"></i>}@else {<i
+          class="fas-fa-eye-slash"
+        ></i
+        >}
+      </span>
+      @if (passwordControl?.errors && passwordControl?.touched) {
+      <div>
+        <span class="font-medium">Ensure that these requirements are met:</span>
+        <ul class="mt-1.5 list-disc list-inside">
+          @if (passwordControl?.getError('required')) {
+          <li>Input Is Required</li>
+          } @if (passwordControl?.getError('pattern')) {
+          <li>Custom field should match the pattern</li>
+          }
+        </ul>
+      </div>
+      }
+    </div> -->
+    <!-- <div class="relative mb-1">
+      <input
+        formControlName="rePassword"
+        type="password"
+        id="rePassword"
+        class="main-input peer"
+        placeholder=" "
+      />
+      <label for="rePassword" class="main-label">rePassword</label>
+      @if (registerForm.getError('mismatch')&&
+      registerForm.get('rePassword')?.touched) {
+      <div
+        class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+        role="alert"
+      >
+        <ul class="mt-1.5 list-disc list-inside">
+          <li>Password confirmation is incorrect</li>
+        </ul>
+      </div>
+      }
+    </div> -->
+
+    <app-input
+      [control]="registerForm.get('rePassword')"
+      [idInput]="'rePassword'"
+      [labelInput]="'RePassword'"
+    >
+    </app-input>
+    <app-input
+      [control]="registerForm.get('phone')"
+      [typeInput]="'tel'"
+      [idInput]="'phone'"
+      [labelInput]="'Phone'"
+    >
+      Accept only egypt phone numbers
+    </app-input>
+
+    <!-- <div class="relative mb-1">
+      @let phoneControl = registerForm.get('phone');
+      <input
+        [class]="{
+        'border-green-700' : phoneControl ?.valid,
+        'border-red-700' : phoneControl ?.invalid && phoneControl?.touched ,
+      }"
+        formControlName="phone"
+        type="tel"
+        id="phone"
+        class="main-input peer"
+        placeholder=" "
+      />
+      <label
+        [class]="{
+        'text-green-700' : phoneControl ?.valid,
+        'text-red-700' : phoneControl ?.invalid && phoneControl?.touched ,
+      }"
+        for="phone"
+        class="main-label"
+        >Phone</label
+      >
+      @if (phoneControl?.errors && phoneControl?.touched) {
+      <div>
+        <span class="font-medium">Ensure that these requirements are met:</span>
+        <ul class="mt-1.5 list-disc list-inside">
+          @if (phoneControl?.getError('required')) {
+          <li>Input Is Required</li>
+          } @if (phoneControl?.getError('pattern')) {
+          <li>Accept only Egypt phone numbers</li>
+          }
+        </ul>
+      </div>
+      }
+    </div> -->
+    <button class="btn" type="submit">
+      register @if (isLoading) {
+      <i class="fas fa-spinner animate-spin"></i>
+      }
+    </button>
+
+    @if (msgError) {
+    <p class="mt-4 text-center text-red-900 p-4 bg-red-200">{{ msgError }}</p>
+    }
+  </form>
+</section>

@@ -1,0 +1,64 @@
+<!-- <section
+y-14 mx-  class="bg-gray-300 border rounded-lg border-gray-200 p-4 shadow-md md:w-1/2 mx-auto"
+>
+  <h1 class="text-center mb-3 font-light text-3xl">Register Now</h1>
+  <div class="relative">
+    <input
+      [formControl]="email"
+      type="email"
+      id="email"
+      class="main-input peer"
+      placeholder=" "
+    />
+    <label for="email" class="main-label">Email</label>
+
+    @if (email.errors && email.touched) {
+    <div>
+      <span class="font-medium">Ensure that these requirements are met:</span>
+      <ul class="mt-1.5 list-disc list-inside">
+        @if (email.getError('required')) {
+        <li>Input Is Required</li>
+        } @if (email.getError('email')) {
+        <li>Please Inter a valid email address</li>
+        }
+      </ul>
+    </div>
+    }
+  </div>
+
+  <button (click)="submit()" class="btn mt-4">Register Now</button>
+</section> -->
+
+<section
+  class="bg-gray-300 border rounded-lg border-gray-200 p-4 shadow-md md:w-1/2 mx-auto"
+>
+  <h1 class="text-center mb-3 font-light text-3xl">Register Now</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+    <app-input
+      [control]="loginForm.get('email')"
+      [typeInput]="'email'"
+      [idInput]="'email'"
+      [labelInput]="'Email'"
+    ></app-input>
+    <app-input
+      [control]="loginForm.get('password')"
+      [idInput]="'password'"
+      [labelInput]="'Password'"
+      >custom field should match the pattern
+    </app-input>
+    <div class="flex items-center space-x-10">
+      <a routerLink="/forgot" class="text-sky-500 cursor-pointer"
+        >ForgotPassword</a
+      >
+      <button class="btn" type="submit">
+        login @if (isLoading) {
+        <i class="fas fa-spinner animate-spin"></i>
+        }
+      </button>
+    </div>
+
+    @if (msgError) {
+    <p class="mt-4 text-center text-red-900 p-4 bg-red-200">{{ msgError }}</p>
+    }
+  </form>
+</section>

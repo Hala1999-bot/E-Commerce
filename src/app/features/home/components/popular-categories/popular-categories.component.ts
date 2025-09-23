@@ -1,0 +1,58 @@
+import { Category } from '../../../../core/models/category.interface';
+import { CategoriesService } from './../../../../core/services/categories/categories.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+@Component({
+  selector: 'app-popular-categories',
+  imports: [CarouselModule],
+  templateUrl: './popular-categories.component.html',
+  styleUrl: './popular-categories.component.css',
+})
+export class PopularCategoriesComponent implements OnInit {
+  private readonly categoriesService = inject(CategoriesService);
+  categoriesList: Category[] = [];
+  customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: false,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayHoverPause: true,
+    dots: true,
+    margin: 10,
+    navSpeed: 700,
+    navText: ['<i class="fas fa-home"></i>', ''],
+    responsive: {
+      0: {
+        items: 1,
+      },
+      400: {
+        items: 2,
+      },
+      740: {
+        items: 3,
+      },
+      940: {
+        items: 4,
+      },
+    },
+    nav: false,
+  };
+
+  ngOnInit(): void {
+    this.getAllCategoriesData();
+  }
+
+  getAllCategoriesData(): void {
+    this.categoriesService.getAllCategories().subscribe({
+      next: (res) => {
+        console.log(res.data);
+        this.categoriesList = res.data;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+}
